@@ -55,10 +55,15 @@ const key_override_t *key_overrides[] = {
 };
 */
 
+// HISTORICAL CUSTOM SHIFT
+
 const custom_shift_key_t custom_shift_keys[] = {
   {KC_BSPC , KC_DEL}, // shift-backspace = DEL
   {KC_SPC, KC_CAPS}, // shift-space = CAPSLOCK
 };
+
+uint8_t NUM_CUSTOM_SHIFT_KEYS =
+    sizeof(custom_shift_keys) / sizeof(custom_shift_key_t);
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -222,3 +227,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
     */
+
+
+// HISTORICAL CUSTOM SHIFT
+
+bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+  if (!process_custom_shift_keys(keycode, record)) { return false; }
+  // Your macros ...
+
+  return true;
+}
